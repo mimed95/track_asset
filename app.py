@@ -6,14 +6,19 @@ import numpy as np
 
 
 def check_asset_price():
-    today = datetime.today()
-    if 6 < today.hour < 23 & np.is_busday(today.date()):
+    today = datetime.now()
+    condition = (6 < today.hour < 22) & (np.is_busday(today.date()))
+
+    if condition:
         track = AssetTracker()
         tick_value, recent_close, percent_down = track.compare_with_ohlc()
         print(tick_value, recent_close)
         reduction = (recent_close - tick_value)/recent_close
         if reduction >= 0.02:
             send_email(recent_close, reduction)
+        s.enter(900, 1, check_asset_price)
+    else:
+        #print("sleeping..")
         s.enter(900, 1, check_asset_price)
     
 

@@ -1,11 +1,13 @@
 from sched import scheduler
 from src.track_asset import AssetTracker
 from src.mailing import send_email
-from datetime import datetime
+from datetime import date, datetime
+import numpy as np
 
 
 def check_asset_price():
-    if 6 < datetime.today().hour < 23:
+    today = datetime.today()
+    if 6 < today.hour < 23 & np.is_busday(today.date()):
         track = AssetTracker()
         tick_value, recent_close, percent_down = track.compare_with_ohlc()
         print(tick_value, recent_close)

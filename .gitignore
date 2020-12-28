@@ -1,3 +1,5 @@
 *__pycache__
 *secrets.py
 *.vscode
+venv
+nohup.out

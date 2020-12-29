@@ -19,13 +19,13 @@ def check_asset_price(fileout=None):
         print(tick_value, recent_close, today.strftime('%d.%m.%Y %H.%M.%S'),
         file=open(fileout, "a"))
         reduction = (recent_close - tick_value)/recent_close
-        #if reduction >= 0.02:
-        #   send_email(recent_close, reduction)
+        if reduction >= 0.02:
+           send_email(recent_close, reduction)
     else:
-        print(
-            "sleeping..",
-            file=open(fileout, "a")
-        )
+        #print(
+        #    "sleeping..",
+        #    file=open(fileout, "a")
+        #)
         pass
 
 

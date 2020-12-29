@@ -93,7 +93,7 @@ class AssetTracker:
         self.ticker = df
 
     def _update_ticker(self, onvista_id:Optional[int]=258725091):
-
+        
         dt = datetime.today() - self.ticker.iloc[0,0]
         if dt.seconds > self.ticker_update_intervall:
             self._download_ticker(onvista_id)
@@ -105,7 +105,8 @@ class AssetTracker:
         self._update_ticker(onvista_id)
         if self._check_exists("hydro_cert_ticker"):
             pass
-            
+        if self.ticker.empty:
+            raise IndexError("ticker is empty")    
         newest_date_idx = self.ohlc.date.idxmax()
         newest_close = self.ohlc.loc[newest_date_idx, "close"]
         #newest_low = self.ohlc.loc[newest_date_idx, "low"]
